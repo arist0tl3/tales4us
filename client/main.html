@@ -1,0 +1,54 @@
+<template name="main">
+
+
+
+  <div class="content-wrapper">
+
+    <nav class="bg-teal">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">SharedStory</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>{{> loginButtons align="right"}}</li>
+        </ul>
+      </div>
+    </nav>
+
+  <div class="row">
+    {{#if meteorUser}}
+      <div class="col s3 right-border height-minus-navbar">
+        <div class="section">
+          <form>
+            <input id="text-input" type="text" placeholder="Input your word here" />
+          </form>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+          <p>Queue: 1/{{currentUserCount}}</p>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+          <p>You have submitted 13 words this chapter, and 33 all time</p>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+          <a href="#" class="valign">Click here to view past chapters</a>
+        </div>
+      </div>
+    {{else}}
+    <div class="col s3 right-border height-minus-navbar">
+      <div class="section">
+        <p>Watching can be plenty of fun, but if you want to start adding to the story, just log in!</p>
+      </div>
+    </div>
+    {{/if}}
+
+      <div class="col s9 height-minus-navbar scroll-content">
+          <h2>Chapter 1</h2>
+          <p>{{text}}</p>
+      </div>
+
+    </div>
+  </div>
+
+
+</template>

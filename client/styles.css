@@ -1,0 +1,41 @@
+.nav-wrapper {
+  padding: 0 30px;
+}
+
+.footer {
+  position:fixed;
+  width:100%;
+  bottom:0;
+  left:0;
+  border-top: 1px solid gray;
+}
+
+.right-border {
+  border-right: 1px solid gray;
+}
+
+.footer .row {
+  margin:0;
+}
+
+.height-minus-navbar {
+  height: calc(100vh - 64px);
+}
+
+.scroll-content {
+  overflow: auto;
+}
+
+.content-wrapper {
+  overflow:hidden;
+  height: 100vh;
+  width:100vw;
+}
+
+.bg-teal {
+  background-color: #009688;
+}
+
+.bg-lighten-5 {
+  background-color: #e0f2f1;
+}
