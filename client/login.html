@@ -1,0 +1,31 @@
+<template name="login">
+
+  <div class="content-wrapper">
+
+    {{> nav}}
+
+
+
+    {{#if meteorUser}}
+    <div class="row">
+      <div class="col s12 height-minus-navbar scroll-content">
+        <h2>Thanks for loggin in!</h2>
+        <p>To create a new story, simply click <a href="/create">I want to create a new story!</a> If you want to invite
+          other users to join your story, simply give them the url.</p>
+      </div>
+    </div>
+    {{else}}
+    <div class="row">
+      <div class="col s12 height-minus-navbar scroll-content">
+        <h2>Please login to continue!</h2>
+        <p>We require users to login to our service in order to ensure that our app operates correctly, and that stories
+          are protected from outside access. We do not use your information in any way other than expressly what you see
+          on your screen!</p>
+      </div>
+    </div>
+    {{/if}}
+
+  </div>
+
+
+</template>

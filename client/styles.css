@@ -39,3 +39,12 @@
 .bg-lighten-5 {
   background-color: #e0f2f1;
 }
+
+.s3 {
+  overflow-y:scroll;
+}
+
+.author-btn {
+  margin:0 auto;
+  padding: 5px;
+}
