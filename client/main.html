@@ -21,10 +21,6 @@
                 <input id="text-input" type="text" placeholder="Input your word here" />
               </form>
             </div>
-            <div class="divider"></div>
-            <div class="section">
-              <p>You have submitted 13 words this chapter, and 33 all time</p>
-            </div>
           {{/if}}
         {{/if}}
 
@@ -45,9 +41,15 @@
           {{#each authors}}
             {{#if myId authorData._id}}
               <p style="color:green; margin:10px;" title="This is you!">{{authorData._id}}
+                {{#if amICurrentAuthor authorData._id}}
+                  -- Current Author
+                {{/if}}
               </p>
             {{else}}
               <p style="margin:10px;">{{authorData._id}}
+                {{#if amICurrentAuthor authorData._id}}
+                  -- Current Author
+                {{/if}}
               </p>
             {{/if}}
           {{/each}}
@@ -68,7 +70,7 @@
 
           <p>
             {{#each stories}}
-              {{text}}
+              {{{text}}}
             {{/each}}
           </p>
       </div> <!-- /content -->

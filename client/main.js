@@ -54,6 +54,14 @@ Template.main.helpers({
     } else {
       return false;
     }
+  },
+  amICurrentAuthor: function(id){
+    currentAuthor = getCurrentAuthor();
+    if(id === currentAuthor){
+      return true;
+    } else {
+      return false;
+    }
   }
 
 });
@@ -61,11 +69,15 @@ Template.main.helpers({
 Template.main.events({
   'submit' : function(e,t){
     e.preventDefault();
-    if (1 === 1){
+    currentAuthor = getCurrentAuthor();
+    thisId = Meteor.userId();
+    if (thisId === currentAuthor){
       lastText = Stories.findOne({_id:currentStoryId}).text;
-      newText = lastText + " " + $('#text-input').val();
+      idToInsert = Meteor.userId();
+      newText = lastText + "<span title=' Posted by: " + idToInsert +"'>" + $('#text-input').val() + "</span> ";
       Meteor.call("addText", currentStoryId, newText);
       $('#text-input').val("");
+      getNextAuthor();
     } else {
       Materialize.toast('Not your turn yet!', 4000);
     }
@@ -80,5 +92,29 @@ Template.main.events({
         Stories.update({_id:currentStoryId}, { $push: { queue: {_id: idToInsert }}});
       }
     }
+  },
+  'click h2' : function(){
+    getNextAuthor();
   }
 });
+
+function getCurrentAuthor(){
+  idToReturn = Stories.findOne({_id:currentStoryId}).currentAuthor;
+  return idToReturn;
+}
+
+function getNextAuthor(){
+  currentAuthor = getCurrentAuthor();
+  obj = Stories.findOne({_id:currentStoryId}).queue;
+  array = [];
+  for(x=0;x<obj.length;x++){
+    array.push(obj[x]._id);
+  }
+  var a = array.indexOf(currentAuthor);
+  if (a+1 >= obj.length){
+    nextAuthor = array[0];
+  } else {
+    nextAuthor = array[a+1];
+  }
+  Stories.update({_id:currentStoryId}, {$set: {currentAuthor: nextAuthor}});
+}
