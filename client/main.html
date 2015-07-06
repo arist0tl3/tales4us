@@ -43,11 +43,13 @@
 
           <!-- for each author attached to the story, display their id. -->
           {{#each authors}}
+            {{#if myId authorData._id}}
               <p style="color:green; margin:10px;" title="This is you!">{{authorData._id}}
-              {{#if isCurrentAuthor authorData._id}}
-                - Current author
-              {{/if}}
               </p>
+            {{else}}
+              <p style="margin:10px;">{{authorData._id}}
+              </p>
+            {{/if}}
           {{/each}}
 
         </div>

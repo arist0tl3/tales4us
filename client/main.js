@@ -54,34 +54,17 @@ Template.main.helpers({
     } else {
       return false;
     }
-  },
-  isCurrentAuthor : function(myId){
-    console.log('currentauthor');
-    currentId = getCurrentAuthor();
-    if (myId === currentId){
-      return true;
-    } else {
-      return false;
-    }
   }
+
 });
 
 Template.main.events({
   'submit' : function(e,t){
     e.preventDefault();
-    myId = Meteor.userId();
-    currentId = getCurrentAuthor();
-    if (myId === currentId){
+    if (1 === 1){
       lastText = Stories.findOne({_id:currentStoryId}).text;
       newText = lastText + " " + $('#text-input').val();
-      Stories.update({_id:currentStoryId}, { $set: {"text" : newText} } );
-      x = currentAuthorNumber;
-      userCount = Stories.findOne({_id:currentStoryId}).queue.length;
-      if (x+1 === userCount){
-        currentAuthorNumber = 0;
-      } else {
-        currentAuthorNumber = currentAuthorNumber +1;
-      }
+      Meteor.call("addText", currentStoryId, newText);
       $('#text-input').val("");
     } else {
       Materialize.toast('Not your turn yet!', 4000);
@@ -94,18 +77,8 @@ Template.main.events({
       idToInsert = Meteor.userId();
       if (sizeOfQueue < 20){
         newOrder = sizeOfQueue;
-        Stories.update({_id:currentStoryId}, { $push: { queue: {order: newOrder, _id: idToInsert }}});
+        Stories.update({_id:currentStoryId}, { $push: { queue: {_id: idToInsert }}});
       }
     }
   }
 });
-
-function getCurrentAuthor(){
-    if (currentAuthorNumber === undefined){
-      currentAuthorNumber = 0;
-    }
-    x = currentAuthorNumber;
-    currentAuthor = Stories.findOne({_id:currentStoryId}).queue[x]._id;
-    console.log(currentAuthor);
-    return currentAuthor;
-}
