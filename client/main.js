@@ -104,7 +104,7 @@ function getCurrentAuthor(){
     if (currentAuthorNumber === undefined){
       currentAuthorNumber = 0;
     }
-    x = Session.get("currentAuthorNumber");
+    x = currentAuthorNumber;
     currentAuthor = Stories.findOne({_id:currentStoryId}).queue[x]._id;
     console.log(currentAuthor);
     return currentAuthor;
