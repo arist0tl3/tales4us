@@ -8,6 +8,12 @@
       <!-- sidebar lives in this div -->
       <div class="col s3 right-border height-minus-navbar">
 
+        <div class="section">
+          <h3>Timer: {{timeRemaining}}</h3>
+        </div>
+
+        <div class="divider"></div>
+
         <!-- if the user is logged in, display the join/submit sections -->
         {{#if meteorUser}}
           {{#if ableToAdd}}
@@ -59,7 +65,7 @@
         <div class="divider"></div>
 
         <div class="section">
-          <a href="#" class="valign">Click here to view past chapters</a>
+          <a href="#" class="getText valign">Click here for a version to print or save.</a>
         </div>
 
       </div> <!-- /sidebar -->

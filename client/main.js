@@ -62,9 +62,20 @@ Template.main.helpers({
     } else {
       return false;
     }
-  }
+  },
+  timeRemaining: function(){
+    var currentTime = Session.get("time");
+    var lastUpdated = Stories.findOne({_id:currentStoryId}).lastUpdated.valueOf();
+    var difference = currentTime - lastUpdated;
+    difference = difference / 1000;
+    difference = Math.round(difference);
+    difference = 60 - difference;
+    Session.set("difference", difference);
+    return difference;
 
+  }
 });
+
 
 Template.main.events({
   'submit' : function(e,t){
@@ -93,8 +104,13 @@ Template.main.events({
       }
     }
   },
-  'click h2' : function(){
-    getNextAuthor();
+  'click .getText' : function(e,t){
+    e.preventDefault();
+    var x=window.open();
+    x.document.open();
+    content = Stories.findOne({_id:currentStoryId}).text;
+    x.document.write(content);
+    x.document.close();
   }
 });
 
@@ -118,3 +134,13 @@ function getNextAuthor(){
   }
   Stories.update({_id:currentStoryId}, {$set: {currentAuthor: nextAuthor}});
 }
+
+Meteor.setInterval(function() {
+    if(Session.get("difference") <= 0){
+      getNextAuthor();
+      Meteor.call("resetTime", currentStoryId);
+    }
+    var date = new Date();
+    var currentTime = date.valueOf();
+    Session.set('time', currentTime);
+}, 1000);
